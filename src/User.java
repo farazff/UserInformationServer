@@ -2,16 +2,18 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class User implements Serializable
-{
+public class User implements Serializable {
     private char[] password;
     private String userName;
     private long signedUpTime;
     private int score;
     private int rank;
+    private int defaultTankStamina;
+    private int defaultWallStamina;
+    private int defaultCanonPower;
 
-    public User (String userName, char[] password)
-    {
+
+    public User (String userName, char[] password) {
         this.password = password;
         this.userName = userName;
         signedUpTime = System.currentTimeMillis ();
@@ -20,7 +22,29 @@ public class User implements Serializable
     }
 
 
+    public void setDefaultWallStamina (int defaultWallStamina) {
+        this.defaultWallStamina = defaultWallStamina;
+    }
 
+    public void setDefaultCanonPower (int defaultCanonPower) {
+        this.defaultCanonPower = defaultCanonPower;
+    }
+
+    public void setDefaultTankStamina (int defaultTankStamina) {
+        this.defaultTankStamina = defaultTankStamina;
+    }
+
+    public int getDefaultCanonPower () {
+        return defaultCanonPower;
+    }
+
+    public int getDefaultTankStamina () {
+        return defaultTankStamina;
+    }
+
+    public int getDefaultWallStamina () {
+        return defaultWallStamina;
+    }
 
     public void setRank (int rank) {
         this.rank = rank;
@@ -42,9 +66,8 @@ public class User implements Serializable
         return rank;
     }
 
-    public boolean isSame (String userName, char[] password)
-    {
-        return Arrays.equals (password,this.password) &&
+    public boolean isSame (String userName, char[] password) {
+        return Arrays.equals (password, this.password) &&
                 userName.equals (this.userName);
     }
 
