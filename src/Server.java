@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,13 +12,13 @@ public class Server
     private UsersStorage usersStorage;
 
 
-    public Server (UsersStorage usersStorage, int port)
+    public Server (int port)
     {
         pool = Executors.newCachedThreadPool ();
         running = true;
         numOfClients = 0;
         this.port = port;
-        this.usersStorage = usersStorage;
+        loadUserStorage ();
     }
 
 
@@ -38,6 +38,7 @@ public class Server
                 i++;
             }
             pool.shutdown ();
+            saveUserStorage ();
         } catch (IOException e)
         {
             e.printStackTrace ();
@@ -51,4 +52,39 @@ public class Server
     public int getNumOfClients () {
         return numOfClients;
     }
+
+    protected void saveUserStorage ()
+    {
+        try (ObjectOutputStream out = new ObjectOutputStream (
+                new FileOutputStream (
+                        new File ("./Data/usersData.ser")))){
+
+            out.writeObject (usersStorage);
+        } catch (IOException e)
+        {
+            System.out.println ("some thing went wrong in save");
+        }
+    }
+
+    private void loadUserStorage ()
+    {
+        try (ObjectInputStream in = new ObjectInputStream (
+                new FileInputStream (
+                        new File ("./Data/usersData.ser")))){
+            Object o = in.readObject ();
+            usersStorage =  (UsersStorage) o;
+
+        } catch (FileNotFoundException e)
+        {
+            usersStorage = new UsersStorage ();
+        }
+        catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println ("some thing was wrong in load");
+        }
+    }
+
+
+
+
 }

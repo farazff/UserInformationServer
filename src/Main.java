@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -5,9 +6,9 @@ public class Main
 {
     public static void main (String[] args) {
 
-        UsersStorage usersStorage = new UsersStorage ();
-        SaveServer saveServer = new SaveServer (usersStorage);
-        LoadServer loadServer = new LoadServer (usersStorage);
+
+        SaveServer saveServer = new SaveServer ();
+        LoadServer loadServer = new LoadServer ();
         ExecutorService pool = Executors.newCachedThreadPool ();
 
         pool.execute (new Runnable () {
@@ -23,7 +24,24 @@ public class Main
                 loadServer.startServer ();
             }
         });
-
         pool.shutdown ();
+
+
+        int i = 2;
+        while(i > 0)
+        {
+            Scanner scanner = new Scanner (System.in);
+            String line = scanner.nextLine ();
+            if (line.contains ("End; LoadServer"))
+            {
+                loadServer.setRunning (false);
+                i--;
+            } else if (line.contains ("End; SaveServer"))
+            {
+                saveServer.setRunning (false);
+                i--;
+            }
+        }
+
     }
 }

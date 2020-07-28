@@ -1,7 +1,7 @@
 public class LoadServer extends Server
 {
 
-    public LoadServer (UsersStorage usersStorage) {
-        super (usersStorage, 8083);
+    public LoadServer () {
+        super (8083);
     }
 }
