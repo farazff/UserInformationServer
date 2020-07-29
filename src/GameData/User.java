@@ -88,13 +88,11 @@ public class User implements Serializable
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return isSame (user.userName, user.password);
+        return userName.equals (user.userName);
     }
 
     @Override
     public int hashCode () {
-        int result = Objects.hash (userName);
-        result = 31 * result + Arrays.hashCode (password);
-        return result;
+        return Objects.hash (userName);
     }
 }

@@ -63,6 +63,22 @@ public class UsersStorage implements Serializable
             }
         }
         isIterate = false;
-        return new NullUser ();
+        return null;
+    }
+
+    public boolean hasUserNameUsed (String userName)
+    {
+        User user = new User (userName,new char[]{'.','.','.'});
+        isIterate = true;
+        for (User user1 : users)
+        {
+            if (user1.equals (user))
+            {
+                isIterate = false;
+                return true;
+            }
+        }
+        isIterate = false;
+        return false;
     }
 }

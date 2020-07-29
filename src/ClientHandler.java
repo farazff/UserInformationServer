@@ -1,3 +1,4 @@
+import GameData.NullUser;
 import GameData.User;
 
 import java.io.*;
@@ -38,10 +39,17 @@ public class ClientHandler implements Runnable
                 if (split[0].equals ("Login"))
                 {
                     user = userStorage.getUser (split[1], split[2].toCharArray ());
+                    if (user == null)
+                        user = new NullUser ();
                 } else // sign up
                 {
-                    user = new User (split[1],split[2].toCharArray ());
-                    userStorage.addUser (user);
+                    if (userStorage.hasUserNameUsed (split[1]))
+                        user = new NullUser ();
+                    else
+                    {
+                        user = new User (split[1],split[2].toCharArray ());
+                        userStorage.addUser (user);
+                    }
                 }
 
                 // send
