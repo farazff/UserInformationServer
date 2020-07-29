@@ -1,3 +1,7 @@
+package Server;
+
+import GameData.UsersStorage;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
@@ -25,15 +29,15 @@ public class Server
     public void startServer ()
     {
         try (ServerSocket welcomingConnection = new ServerSocket (port)) {
-            System.out.println ("Server with port : " + port + ((port == 8083)? " (Load Server)" :
-                    " (Save Server)") +
+            System.out.println ("Server.Server with port : " + port + ((port == 8083)? " (Load Server.Server)" :
+                    " (Save Server.Server)") +
                     " Started \nWaiting for Client .....");
             int i = 1;
             while (running)
             {
                 pool.execute (new ClientHandler (welcomingConnection.accept (),i,port,usersStorage));
-                System.out.println ("Server with port : " + port + ((port == 8083)? " (Load Server)" :
-                        " (Save Server)") +
+                System.out.println ("Server.Server with port : " + port + ((port == 8083)? " (Load Server.Server)" :
+                        " (Save Server.Server)") +
                         " connected to new Client : Client " + i);
                 i++;
             }

@@ -1,5 +1,8 @@
+package Server;
+
 import GameData.NullUser;
 import GameData.User;
+import GameData.UsersStorage;
 
 import java.io.*;
 import java.net.Socket;
@@ -32,8 +35,8 @@ public class ClientHandler implements Runnable
                 // receive
                 User user;
                 in = new DataInputStream (socket.getInputStream ());
-                System.out.println (port + ((port == 8083)? " (Load Server) " :
-                        " (Save Server) ") + "<- data received from client " + id);
+                System.out.println (port + ((port == 8083)? " (Load Server.Server) " :
+                        " (Save Server.Server) ") + "<- data received from client " + id);
                 String request = ((DataInputStream) in).readUTF ();
                 String[] split = request.split (" ");
                 if (split[0].equals ("Login"))
@@ -57,8 +60,8 @@ public class ClientHandler implements Runnable
 
                 out = new ObjectOutputStream (socket.getOutputStream ());
                 ((ObjectOutputStream) out).writeObject (user);
-                System.out.println (port + ((port == 8083)? " (Load Server) " :
-                        " (Save Server) ") + "-> data sent to client " + id);
+                System.out.println (port + ((port == 8083)? " (Load Server.Server) " :
+                        " (Save Server.Server) ") + "-> data sent to client " + id);
 
             } else if (port == 4787)
             {
@@ -66,8 +69,8 @@ public class ClientHandler implements Runnable
                 in = new ObjectInputStream (socket.getInputStream ());
                 User user = (User) ((ObjectInputStream) in).readObject ();
                 boolean res = userStorage.update (user);
-                System.out.println (port + ((port == 8083)? " (Load Server) " :
-                        " (Save Server) ") + "<- data received from client " + id);
+                System.out.println (port + ((port == 8083)? " (Load Server.Server) " :
+                        " (Save Server.Server) ") + "<- data received from client " + id);
 
                 // send
                 out = new DataOutputStream (socket.getOutputStream ());
@@ -75,21 +78,21 @@ public class ClientHandler implements Runnable
                     ((DataOutputStream) out).writeUTF ("Successful");
                 else
                     ((DataOutputStream) out).writeUTF ("Error");
-                System.out.println (port + ((port == 8083)? " (Load Server) " :
-                        " (Save Server) ") + "-> data sent to client " + id);
+                System.out.println (port + ((port == 8083)? " (Load Server.Server) " :
+                        " (Save Server.Server) ") + "-> data sent to client " + id);
             }
 
         } catch (ClassNotFoundException e) {
-            System.out.println (port + ((port == 8083)? " (Load Server) " :
-                    " (Save Server) ") + "Some thing went wrong in reading objects from server");
+            System.out.println (port + ((port == 8083)? " (Load Server.Server) " :
+                    " (Save Server.Server) ") + "Some thing went wrong in reading objects from server");
         } catch (SocketException e)
         {
-            System.err.println (port + ((port == 8083)? " (Load Server) " :
-                    " (Save Server) ") + "Client " + id + " 's connection Terminated");
+            System.err.println (port + ((port == 8083)? " (Load Server.Server) " :
+                    " (Save Server.Server) ") + "Client " + id + " 's connection Terminated");
         } catch (IOException e)
         {
-            System.err.println (port + ((port == 8083)? " (Load Server) " :
-                    " (Save Server) ") + "Some thing went wrong with Client " + id);
+            System.err.println (port + ((port == 8083)? " (Load Server.Server) " :
+                    " (Save Server.Server) ") + "Some thing went wrong with Client " + id);
         } finally
         {
             try {
@@ -101,8 +104,8 @@ public class ClientHandler implements Runnable
             }
             catch (IOException e)
             {
-                System.err.println (port + ((port == 8083)? " (Load Server) " :
-                        " (Save Server) ") + "Some thing went wrong in closing ServerInputStream" +
+                System.err.println (port + ((port == 8083)? " (Load Server.Server) " :
+                        " (Save Server.Server) ") + "Some thing went wrong in closing ServerInputStream" +
                         " in Client " + id);
             }
             try {
@@ -115,22 +118,22 @@ public class ClientHandler implements Runnable
             }
             catch (IOException e)
             {
-                System.err.println (port + ((port == 8083)? " (Load Server) " :
-                        " (Save Server) ") + "Some thing went wrong in closing ServerOutputStream" +
+                System.err.println (port + ((port == 8083)? " (Load Server.Server) " :
+                        " (Save Server.Server) ") + "Some thing went wrong in closing ServerOutputStream" +
                         " in Client " + id);
             }
             try {
                 socket.close ();
-                System.out.println (port + ((port == 8083)? " (Load Server) " :
-                        " (Save Server) ") + "Client " + id + " closed");
+                System.out.println (port + ((port == 8083)? " (Load Server.Server) " :
+                        " (Save Server.Server) ") + "Client " + id + " closed");
             }
             catch (SocketException ignore)
             {
             }
             catch (IOException e)
             {
-                System.err.println (port + ((port == 8083)? " (Load Server) " :
-                        " (Save Server) ") + "Some thing went wrong in closing client " + id +
+                System.err.println (port + ((port == 8083)? " (Load Server.Server) " :
+                        " (Save Server.Server) ") + "Some thing went wrong in closing client " + id +
                         " connection");
             }
         }

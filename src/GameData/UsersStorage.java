@@ -1,5 +1,5 @@
-import GameData.NullUser;
-import GameData.User;
+package GameData;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,11 +38,13 @@ public class UsersStorage implements Serializable
         isIterate = true;
         for (User user1 : users)
         {
-            if (user1.equals (user))
+            if (user1.getUserName ().equals (user.getUserName ()))
             {
                 user1.setRank (user.getRank ());
                 user1.setScore (user.getScore ());
-                // and another data
+                user1.setDefaultCanonPower (user.getDefaultCanonPower ());
+                user1.setDefaultTankStamina (user.getDefaultTankStamina ());
+                user1.setDefaultWallStamina (user.getDefaultWallStamina ());
                 res = true;
                 break;
             }
@@ -56,7 +58,7 @@ public class UsersStorage implements Serializable
         isIterate = true;
         for (User user : users)
         {
-            if (user.isSame (userName,password))
+            if (user.equals (new User (userName,password)))
             {
                 isIterate = false;
                 return user;

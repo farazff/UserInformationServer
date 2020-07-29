@@ -25,6 +25,9 @@ public class User implements Serializable
         rank = -1;
     }
 
+    public String getUserName () {
+        return userName;
+    }
 
     public void setDefaultWallStamina (int defaultWallStamina) {
         this.defaultWallStamina = defaultWallStamina;
@@ -77,22 +80,18 @@ public class User implements Serializable
     }
 
     @Override
-    public String toString () {
-        return "GameData.User{" +
-                "userName='" + userName + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals (Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return userName.equals (user.userName);
+        return Arrays.equals (password, user.password) &&
+                Objects.equals (getUserName (), user.getUserName ());
     }
 
     @Override
     public int hashCode () {
-        return Objects.hash (userName);
+        int result = Objects.hash (getUserName ());
+        result = 31 * result + Arrays.hashCode (password);
+        return result;
     }
 }
