@@ -34,7 +34,7 @@ public class UsersStorage implements Serializable
 
     public boolean update (User user)
     {
-        boolean res = false;
+
         isIterate = true;
         for (User user1 : users)
         {
@@ -45,20 +45,22 @@ public class UsersStorage implements Serializable
                 user1.setDefaultCanonPower (user.getDefaultCanonPower ());
                 user1.setDefaultTankStamina (user.getDefaultTankStamina ());
                 user1.setDefaultWallStamina (user.getDefaultWallStamina ());
-                res = true;
-                break;
+                isIterate = false;
+                return true;
+
             }
         }
         isIterate = false;
-        return res;
+        return false;
     }
 
     public User getUser (String userName, char[] password)
     {
         isIterate = true;
+        User user1 = new User (userName,password);
         for (User user : users)
         {
-            if (user.equals (new User (userName,password)))
+            if (user.equals (user1))
             {
                 isIterate = false;
                 return user;
@@ -74,7 +76,7 @@ public class UsersStorage implements Serializable
         isIterate = true;
         for (User user1 : users)
         {
-            if (user1.equals (user))
+            if (user1.getUserName ().equals (user.getUserName ()))
             {
                 isIterate = false;
                 return true;

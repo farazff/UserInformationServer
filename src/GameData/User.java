@@ -73,11 +73,7 @@ public class User implements Serializable
         return rank;
     }
 
-    public boolean isSame (String userName, char[] password)
-    {
-        return Arrays.equals (password,this.password) &&
-                userName.equals (this.userName);
-    }
+
 
     @Override
     public boolean equals (Object o) {
