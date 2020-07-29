@@ -42,7 +42,6 @@ public class ClientHandler implements Runnable
                 {
                     user = new User (split[1],split[2].toCharArray ());
                     userStorage.addUser (user);
-                    System.out.println (user);
                 }
 
                 // send
