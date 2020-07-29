@@ -1,8 +1,11 @@
+package GameData;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class User implements Serializable {
+public class User implements Serializable
+{
     private char[] password;
     private String userName;
     private long signedUpTime;
@@ -13,7 +16,8 @@ public class User implements Serializable {
     private int defaultCanonPower;
 
 
-    public User (String userName, char[] password) {
+    public User (String userName, char[] password)
+    {
         this.password = password;
         this.userName = userName;
         signedUpTime = System.currentTimeMillis ();
@@ -66,9 +70,17 @@ public class User implements Serializable {
         return rank;
     }
 
-    public boolean isSame (String userName, char[] password) {
-        return Arrays.equals (password, this.password) &&
+    public boolean isSame (String userName, char[] password)
+    {
+        return Arrays.equals (password,this.password) &&
                 userName.equals (this.userName);
+    }
+
+    @Override
+    public String toString () {
+        return "GameData.User{" +
+                "userName='" + userName + '\'' +
+                '}';
     }
 
     @Override

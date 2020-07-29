@@ -27,21 +27,5 @@ public class Main
         pool.shutdown ();
 
 
-        int i = 2;
-        while(i > 0)
-        {
-            Scanner scanner = new Scanner (System.in);
-            String line = scanner.nextLine ();
-            if (line.contains ("End; LoadServer"))
-            {
-                loadServer.setRunning (false);
-                i--;
-            } else if (line.contains ("End; SaveServer"))
-            {
-                saveServer.setRunning (false);
-                i--;
-            }
-        }
-
     }
 }

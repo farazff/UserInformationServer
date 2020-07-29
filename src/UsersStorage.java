@@ -1,3 +1,6 @@
+import GameData.NullUser;
+import GameData.User;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

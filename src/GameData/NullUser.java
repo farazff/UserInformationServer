@@ -1,3 +1,7 @@
+package GameData;
+
+
+
 public class NullUser extends User
 {
 

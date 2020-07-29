@@ -38,10 +38,11 @@ public class Server
                 i++;
             }
             pool.shutdown ();
-            saveUserStorage ();
         } catch (IOException e)
         {
             e.printStackTrace ();
+        } finally {
+            saveUserStorage ();
         }
     }
 

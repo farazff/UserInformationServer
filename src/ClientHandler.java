@@ -1,3 +1,5 @@
+import GameData.User;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
@@ -29,6 +31,8 @@ public class ClientHandler implements Runnable
                 // receive
                 User user;
                 in = new DataInputStream (socket.getInputStream ());
+                System.out.println (port + ((port == 8083)? " (Load Server) " :
+                        " (Save Server) ") + "<- data received from client " + id);
                 String request = ((DataInputStream) in).readUTF ();
                 String[] split = request.split (" ");
                 if (split[0].equals ("Login"))
@@ -38,9 +42,8 @@ public class ClientHandler implements Runnable
                 {
                     user = new User (split[1],split[2].toCharArray ());
                     userStorage.addUser (user);
+                    System.out.println (user);
                 }
-                System.out.println (port + ((port == 8083)? " (Load Server) " :
-                        " (Save Server) ") + "<- data received from client " + id);
 
                 // send
 
