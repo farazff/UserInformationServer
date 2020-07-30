@@ -3,13 +3,13 @@ package GameData;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ServerInformationDataBase
+public class ServerInformationStorage
 {
-    ArrayList<ServerInformation> serverData;
+    private ArrayList<ServerInformation> serverData;
 
-    public ServerInformationDataBase (ArrayList<ServerInformation> serverData)
+    public ServerInformationStorage ()
     {
-        this.serverData = Objects.requireNonNullElseGet (serverData, ArrayList::new);
+        this.serverData = new ArrayList<> ();
     }
 
     public ArrayList<ServerInformation> getServerData () {

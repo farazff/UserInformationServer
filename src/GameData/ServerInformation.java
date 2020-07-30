@@ -10,21 +10,21 @@ public class ServerInformation implements Serializable
     private static final int MAX_CAPACITY = 100;
     private int currentCapacity;
     private int numOfActiveGames;
-    private final ArrayList<Game> games;
+    private final ArrayList<MultiGame> multiGames;
 
-    public ServerInformation (String url, ArrayList<Game> games, char[] password)
+    public ServerInformation (String url, ArrayList<MultiGame> multiGames, char[] password)
     {
         this.url = url;
         this.password = password;
-        if (games != null)
-            this.games = new ArrayList<> (games);
+        if (multiGames != null)
+            this.multiGames = new ArrayList<> (multiGames);
         else
-            this.games = new ArrayList<> ();
+            this.multiGames = new ArrayList<> ();
 
-        if (games == null)
+        if (multiGames == null)
             numOfActiveGames = 0;
         else
-            numOfActiveGames = games.size ();
+            numOfActiveGames = multiGames.size ();
 
         currentCapacity = MAX_CAPACITY - numOfActiveGames;
     }
@@ -45,31 +45,31 @@ public class ServerInformation implements Serializable
         return url;
     }
 
-    public void addGame (Game Game)
+    public void addGame (MultiGame MultiGame)
     {
-        games.add (Game);
-        numOfActiveGames = games.size ();
+        multiGames.add (MultiGame);
+        numOfActiveGames = multiGames.size ();
     }
 
     public void removeMultiGame (int index)
     {
         try {
-            games.remove (index);
-            numOfActiveGames = games.size ();
+            multiGames.remove (index);
+            numOfActiveGames = multiGames.size ();
         } catch (IndexOutOfBoundsException e)
         {
             System.out.println ("Some Thing went Wrong in removing indexed multi game");
         }
     }
 
-    public ArrayList<Game> getGames () {
-        return games;
+    public ArrayList<MultiGame> getMultiGames () {
+        return multiGames;
     }
 
-    public Game getMultiGame (int index)
+    public MultiGame getMultiGame (int index)
     {
         try {
-            return games.get (index);
+            return multiGames.get (index);
         } catch (IndexOutOfBoundsException e)
         {
             System.out.println ("Some Thing went Wrong in getting indexed multi game");
