@@ -34,11 +34,10 @@ public class UsersStorage implements Serializable
 
     public boolean update (User user)
     {
-
         isIterate = true;
         for (User user1 : users)
         {
-            if (user1.getUserName ().equals (user.getUserName ()))
+            if (user1.equals (user))
             {
                 user1.setRank (user.getRank ());
                 user1.setScore (user.getScore ());

@@ -69,11 +69,13 @@ public class ClientHandler implements Runnable
                 in = new ObjectInputStream (socket.getInputStream ());
                 User user = (User) ((ObjectInputStream) in).readObject ();
                 boolean res = userStorage.update (user);
+
                 System.out.println (port + ((port == 8083)? " (Load Server) " :
                         " (Save Server) ") + "<- data received from client " + id);
 
                 // send
                 out = new DataOutputStream (socket.getOutputStream ());
+
                 if (res)
                     ((DataOutputStream) out).writeUTF ("Successful");
                 else

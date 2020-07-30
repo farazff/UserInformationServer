@@ -1,9 +1,11 @@
 package Server;
 
+import GameData.UsersStorage;
+
 public class LoadServer extends Server
 {
 
-    public LoadServer () {
-        super (8083);
+    public LoadServer (UsersStorage usersStorage) {
+        super (8083,usersStorage);
     }
 }

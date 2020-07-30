@@ -16,13 +16,13 @@ public class Server
     private UsersStorage usersStorage;
 
 
-    public Server (int port)
+    public Server (int port, UsersStorage usersStorage)
     {
         pool = Executors.newCachedThreadPool ();
         running = true;
         numOfClients = 0;
         this.port = port;
-        loadUserStorage ();
+        this.usersStorage = usersStorage;
     }
 
 
@@ -45,8 +45,6 @@ public class Server
         } catch (IOException e)
         {
             e.printStackTrace ();
-        } finally {
-            saveUserStorage ();
         }
     }
 
@@ -58,36 +56,7 @@ public class Server
         return numOfClients;
     }
 
-    protected void saveUserStorage ()
-    {
-        try (ObjectOutputStream out = new ObjectOutputStream (
-                new FileOutputStream (
-                        new File ("./Data/usersData.ser")))){
 
-            out.writeObject (usersStorage);
-        } catch (IOException e)
-        {
-            System.out.println ("some thing went wrong in save");
-        }
-    }
-
-    private void loadUserStorage ()
-    {
-        try (ObjectInputStream in = new ObjectInputStream (
-                new FileInputStream (
-                        new File ("./Data/usersData.ser")))){
-            Object o = in.readObject ();
-            usersStorage =  (UsersStorage) o;
-
-        } catch (FileNotFoundException e)
-        {
-            usersStorage = new UsersStorage ();
-        }
-        catch (IOException | ClassNotFoundException e)
-        {
-            System.out.println ("some thing was wrong in load");
-        }
-    }
 
 
 
