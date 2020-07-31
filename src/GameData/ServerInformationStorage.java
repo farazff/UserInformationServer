@@ -1,9 +1,10 @@
 package GameData;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ServerInformationStorage
+public class ServerInformationStorage implements Serializable
 {
     private ArrayList<ServerInformation> serverData;
 
