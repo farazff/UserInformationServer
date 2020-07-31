@@ -19,8 +19,8 @@ public class ServerHandler
     {
         loadUserStorage ();
         loadServerStorage ();
-        saveServer = new SaveServer (usersStorage);
-        loadServer = new LoadServer (usersStorage);
+        saveServer = new SaveServer (usersStorage,serverInformationStorage);
+        loadServer = new LoadServer (usersStorage,serverInformationStorage);
     }
 
     public void start ()
@@ -80,11 +80,11 @@ public class ServerHandler
                 new FileInputStream (
                         new File ("./Data/serverData.ser")))){
             Object o = in.readObject ();
-            this.usersStorage =  (UsersStorage) o;
+            this.serverInformationStorage =  (ServerInformationStorage) o;
 
         } catch (FileNotFoundException e)
         {
-            this.usersStorage = new UsersStorage ();
+            this.serverInformationStorage = new ServerInformationStorage ();
         }
         catch (IOException | ClassNotFoundException e)
         {
@@ -98,7 +98,7 @@ public class ServerHandler
                 new FileOutputStream (
                         new File ("./Data/serverData.ser")))){
 
-            out.writeObject (usersStorage);
+            out.writeObject (serverInformationStorage);
         } catch (IOException e)
         {
             System.out.println ("some thing went wrong in save");

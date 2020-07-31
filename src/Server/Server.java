@@ -1,5 +1,6 @@
 package Server;
 
+import GameData.ServerInformationStorage;
 import GameData.UsersStorage;
 
 import java.io.*;
@@ -14,15 +15,18 @@ public class Server
     private ExecutorService pool;
     private int port;
     private UsersStorage usersStorage;
+    private ServerInformationStorage serverInformationStorage;
 
 
-    public Server (int port, UsersStorage usersStorage)
+    public Server (int port, UsersStorage usersStorage,
+                   ServerInformationStorage serverInformationStorage)
     {
         pool = Executors.newCachedThreadPool ();
         running = true;
         numOfClients = 0;
         this.port = port;
         this.usersStorage = usersStorage;
+        this.serverInformationStorage = serverInformationStorage;
     }
 
 
@@ -35,7 +39,8 @@ public class Server
             int i = 1;
             while (running)
             {
-                pool.execute (new ClientHandler (welcomingConnection.accept (),i,port,usersStorage));
+                pool.execute (new ClientHandler (welcomingConnection.accept (),i,port,usersStorage,
+                        serverInformationStorage));
                 System.out.println ("Server with port : " + port + ((port == 8083)? " (Load Server)" :
                         " (Save Server)") +
                         " connected to new Client : Client " + i);

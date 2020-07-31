@@ -1,6 +1,7 @@
 package Server;
 
 import GameData.NullUser;
+import GameData.ServerInformationStorage;
 import GameData.User;
 import GameData.UsersStorage;
 
@@ -14,13 +15,16 @@ public class ClientHandler implements Runnable
     private int id;
     private int port;
     private UsersStorage userStorage;
+    private ServerInformationStorage serverInformationStorage;
 
-    public ClientHandler (Socket socket, int id, int port, UsersStorage usersStorage)
+    public ClientHandler (Socket socket, int id, int port, UsersStorage usersStorage,
+                          ServerInformationStorage serverInformationStorage)
     {
         this.socket = socket;
         this.id = id;
         this.port = port;
         this.userStorage = usersStorage;
+        this.serverInformationStorage = serverInformationStorage;
     }
 
     @Override
@@ -50,7 +54,7 @@ public class ClientHandler implements Runnable
                         user = new NullUser ();
                     else
                     {
-                        user = new User (split[1],split[2].toCharArray ());
+                        user = new User (split[1],split[2].toCharArray (),serverInformationStorage);
                         userStorage.addUser (user);
                     }
                 }
