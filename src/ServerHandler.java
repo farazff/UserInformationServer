@@ -13,14 +13,32 @@ public class ServerHandler
     private ServerInformationStorage serverInformationStorage;
     private SaveServer saveServer;
     private LoadServer loadServer;
-
+    private FinishProcess finishProcess;
 
     public ServerHandler ()
     {
         loadUserStorage ();
         loadServerStorage ();
+        finishProcess = new FinishProcess ();
         saveServer = new SaveServer (usersStorage,serverInformationStorage);
         loadServer = new LoadServer (usersStorage,serverInformationStorage);
+        new Thread (new Runnable () {
+            @Override
+            public void run () {
+                while (true)
+                {
+                    try {
+                        Thread.sleep (1000 * 60 * 5);
+                        System.out.println ("Auto Saved");
+                        saveUserStorage ();
+                        saveServerStorage ();
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace ();
+                    }
+                }
+            }
+        }).start (); // Auto Save in every 5 minutes
     }
 
     public void start ()
@@ -43,6 +61,11 @@ public class ServerHandler
         });
         pool.shutdown ();
     }
+
+    public FinishProcess getFinishProcess () {
+        return finishProcess;
+    }
+
     private void saveUserStorage ()
     {
         try (ObjectOutputStream out = new ObjectOutputStream (
@@ -102,6 +125,16 @@ public class ServerHandler
         } catch (IOException e)
         {
             System.out.println ("some thing went wrong in save");
+        }
+    }
+
+    private class FinishProcess extends Thread
+    {
+        @Override
+        public void run () {
+            System.out.println ("Auto Saved");
+            saveUserStorage ();
+            saveServerStorage ();
         }
     }
 }
