@@ -25,10 +25,12 @@ public class UsersStorage implements Serializable
             {
                 Thread.sleep (250);
             }
-            users.add (user);
+
         } catch (InterruptedException e)
         {
             e.printStackTrace ();
+        } finally {
+            users.add (user);
         }
     }
 
@@ -44,6 +46,12 @@ public class UsersStorage implements Serializable
                 user1.setDefaultCanonPower (user.getDefaultCanonPower ());
                 user1.setDefaultTankStamina (user.getDefaultTankStamina ());
                 user1.setDefaultWallStamina (user.getDefaultWallStamina ());
+                user1.setNumOfMultiGames (user.getNumOfMultiGames ());
+                user1.setNumOfSingleGames (user.getNumOfSingleGames ());
+                user1.setNumOfWinMultiGames (user.getNumOfWinMultiGames ());
+                user1.setNumOfWinSingleGames (user.getNumOfWinSingleGames ());
+                user1.getServerInformationStorage ().setServerData
+                        (user.getServerInformationStorage ().getServerData ());
                 isIterate = false;
                 return true;
 
@@ -56,7 +64,7 @@ public class UsersStorage implements Serializable
     public User getUser (String userName, char[] password)
     {
         isIterate = true;
-        User user1 = new User (userName,password);
+        User user1 = new User (userName,password,null);
         for (User user : users)
         {
             if (user.equals (user1))
@@ -71,7 +79,7 @@ public class UsersStorage implements Serializable
 
     public boolean hasUserNameUsed (String userName)
     {
-        User user = new User (userName,new char[]{'.','.','.'});
+        User user = new User (userName,new char[]{'.','.','.'},null);
         isIterate = true;
         for (User user1 : users)
         {
