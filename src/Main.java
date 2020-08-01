@@ -10,7 +10,7 @@ public class Main
         Scanner scanner = new Scanner (System.in);
         while (true)
         {
-            if (scanner.nextLine ().contains ("Down Server"))
+            if (scanner.nextLine ().toLowerCase ().contains ("down server"))
                 System.exit (0);
         }
     }
