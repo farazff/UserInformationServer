@@ -7,6 +7,9 @@ import java.io.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * this class handles server and response them
+ */
 public class ServerHandler
 {
     private UsersStorage usersStorage;
@@ -15,6 +18,9 @@ public class ServerHandler
     private LoadServer loadServer;
     private FinishProcess finishProcess;
 
+    /**
+     * creates a new ServerHandler
+     */
     public ServerHandler ()
     {
         loadUserStorage ();
@@ -41,6 +47,9 @@ public class ServerHandler
         }).start (); // Auto Save in every 5 minutes
     }
 
+    /**
+     * starts response
+     */
     public void start ()
     {
 
@@ -62,10 +71,17 @@ public class ServerHandler
         pool.shutdown ();
     }
 
+    /**
+     *
+     * @return get FinishProcess
+     */
     public FinishProcess getFinishProcess () {
         return finishProcess;
     }
 
+    /**
+     * saves data of users
+     */
     private void saveUserStorage ()
     {
         try (ObjectOutputStream out = new ObjectOutputStream (
@@ -79,6 +95,9 @@ public class ServerHandler
         }
     }
 
+    /**
+     * load data of Users
+     */
     private void loadUserStorage ()
     {
         try (ObjectInputStream in = new ObjectInputStream (
@@ -97,6 +116,9 @@ public class ServerHandler
         }
     }
 
+    /**
+     * load data of servers
+     */
     private void loadServerStorage ()
     {
         try (ObjectInputStream in = new ObjectInputStream (
@@ -115,6 +137,9 @@ public class ServerHandler
         }
     }
 
+    /**
+     * save data of servers
+     */
     private void saveServerStorage ()
     {
         try (ObjectOutputStream out = new ObjectOutputStream (
@@ -128,6 +153,9 @@ public class ServerHandler
         }
     }
 
+    /**
+     * this class built for save anything before termination
+     */
     private class FinishProcess extends Thread
     {
         @Override
