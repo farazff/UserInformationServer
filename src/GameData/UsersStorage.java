@@ -4,18 +4,28 @@ package GameData;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * this class is Users Storage
+ */
 public class UsersStorage implements Serializable
 {
 
     private ArrayList<User> users;
     private boolean isIterate;
 
+    /**
+     * creates a User Storage
+     */
     public UsersStorage ()
     {
         users = new ArrayList<> ();
         isIterate = false;
     }
 
+    /**
+     * add User
+     * @param user user
+     */
     public void addUser (User user)
     {
         if (user == null)
@@ -34,6 +44,11 @@ public class UsersStorage implements Serializable
         }
     }
 
+    /**
+     * update users
+     * @param user user
+     * @return result
+     */
     public boolean update (User user)
     {
         isIterate = true;
@@ -61,6 +76,12 @@ public class UsersStorage implements Serializable
         return false;
     }
 
+    /**
+     * get user
+     * @param userName userName
+     * @param password password
+     * @return user
+     */
     public User getUser (String userName, char[] password)
     {
         isIterate = true;
@@ -77,6 +98,11 @@ public class UsersStorage implements Serializable
         return null;
     }
 
+    /**
+     * has username used
+     * @param userName userName
+     * @return result
+     */
     public boolean hasUserNameUsed (String userName)
     {
         User user = new User (userName,new char[]{'.','.','.'},null);
