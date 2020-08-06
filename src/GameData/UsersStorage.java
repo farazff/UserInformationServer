@@ -67,6 +67,7 @@ public class UsersStorage implements Serializable
                 user1.setNumOfWinSingleGames (user.getNumOfWinSingleGames ());
                 user1.getServerInformationStorage ().setServerData
                         (user.getServerInformationStorage ().getServerData ());
+                user1.setTankCode (user.getTankCode ());
                 isIterate = false;
                 return true;
 
