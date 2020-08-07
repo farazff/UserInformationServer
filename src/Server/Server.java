@@ -33,16 +33,14 @@ public class Server
     public void startServer ()
     {
         try (ServerSocket welcomingConnection = new ServerSocket (port)) {
-            System.out.println ("Server with port : " + port + ((port == 8083)? " (Load Server)" :
-                    " (Save Server)") +
+            System.out.println ("Server with port : " + port + getServerName (port)+
                     " Started \nWaiting for Client .....");
             int i = 1;
             while (running)
             {
                 pool.execute (new ClientHandler (welcomingConnection.accept (),i,port,usersStorage,
                         serverInformationStorage));
-                System.out.println ("Server with port : " + port + ((port == 8083)? " (Load Server)" :
-                        " (Save Server)") +
+                System.out.println ("Server with port : " + port + getServerName (port) +
                         " connected to new Client : Client " + i);
                 i++;
             }
@@ -61,7 +59,16 @@ public class Server
         return numOfClients;
     }
 
-
+    private String getServerName (int port)
+    {
+        switch (port)
+        {
+            case 8083 : return " (Load Server) ";
+            case 4787 : return " (Save Server) ";
+            case 6050 : return " (List Server) ";
+        }
+        return "";
+    }
 
 
 
