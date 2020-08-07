@@ -2,12 +2,14 @@ package Server;
 
 import GameData.ServerInformationStorage;
 import GameData.UsersStorage;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Parent Server for Login/logout/List
+ */
 public class Server
 {
     private boolean running;
@@ -17,7 +19,12 @@ public class Server
     private UsersStorage usersStorage;
     private ServerInformationStorage serverInformationStorage;
 
-
+    /**
+     * creates a new Server
+     * @param port port
+     * @param usersStorage usersStorage
+     * @param serverInformationStorage serverInformationStorage
+     */
     public Server (int port, UsersStorage usersStorage,
                    ServerInformationStorage serverInformationStorage)
     {
@@ -29,7 +36,9 @@ public class Server
         this.serverInformationStorage = serverInformationStorage;
     }
 
-
+    /**
+     * starts server
+     */
     public void startServer ()
     {
         try (ServerSocket welcomingConnection = new ServerSocket (port)) {
@@ -51,14 +60,11 @@ public class Server
         }
     }
 
-    public void setRunning (boolean running) {
-        this.running = running;
-    }
-
-    public int getNumOfClients () {
-        return numOfClients;
-    }
-
+    /**
+     * get server's name depends on it's port
+     * @param port port
+     * @return Server's name
+     */
     private String getServerName (int port)
     {
         switch (port)

@@ -4,12 +4,14 @@ import GameData.NullUser;
 import GameData.ServerInformationStorage;
 import GameData.User;
 import GameData.UsersStorage;
-
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
+/**
+ * this class handles a client
+ */
 public class ClientHandler implements Runnable
 {
     private Socket socket;
@@ -18,6 +20,14 @@ public class ClientHandler implements Runnable
     private UsersStorage userStorage;
     private ServerInformationStorage serverInformationStorage;
 
+    /**
+     * creates new Handler
+     * @param socket connection
+     * @param id id
+     * @param port port
+     * @param usersStorage usersStorage
+     * @param serverInformationStorage serverInformationStorage
+     */
     public ClientHandler (Socket socket, int id, int port, UsersStorage usersStorage,
                           ServerInformationStorage serverInformationStorage)
     {
@@ -161,6 +171,11 @@ public class ClientHandler implements Runnable
         }
     }
 
+    /**
+     * get server's name depends on it's port
+     * @param port port
+     * @return Server's name
+     */
     private String getServerName (int port)
     {
         switch (port)
