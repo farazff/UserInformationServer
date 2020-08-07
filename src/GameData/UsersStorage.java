@@ -23,6 +23,22 @@ public class UsersStorage implements Serializable
     }
 
     /**
+     * sets Users
+     * @param users users
+     */
+    public void setUsers (ArrayList<User> users) {
+        this.users = users;
+    }
+
+    /**
+     * get Users
+     * @return users
+     */
+    public ArrayList<User> getUsers () {
+        return users;
+    }
+
+    /**
      * add User
      * @param user user
      */

@@ -1,5 +1,6 @@
 import GameData.ServerInformationStorage;
 import GameData.UsersStorage;
+import Server.ListServer;
 import Server.LoadServer;
 import Server.SaveServer;
 
@@ -16,6 +17,7 @@ public class ServerHandler
     private ServerInformationStorage serverInformationStorage;
     private SaveServer saveServer;
     private LoadServer loadServer;
+    private ListServer listServer;
     private FinishProcess finishProcess;
 
     /**
@@ -28,6 +30,7 @@ public class ServerHandler
         finishProcess = new FinishProcess ();
         saveServer = new SaveServer (usersStorage,serverInformationStorage);
         loadServer = new LoadServer (usersStorage,serverInformationStorage);
+        listServer = new ListServer (usersStorage,serverInformationStorage);
         new Thread (new Runnable () {
             @Override
             public void run () {
@@ -66,6 +69,13 @@ public class ServerHandler
             @Override
             public void run () {
                 loadServer.startServer ();
+            }
+        });
+
+        pool.execute (new Runnable () {
+            @Override
+            public void run () {
+                listServer.startServer ();
             }
         });
         pool.shutdown ();
